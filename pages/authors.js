@@ -27,8 +27,8 @@ const showAuthors = (array) => {
         <span class="btn btn-success" id="view-author-btn--${item.firebaseKey}">
           <i class="fa fa-eye" id="view-author-btn-icon--${item.firebaseKey}" aria-hidden="true"></i>
         </span>
-        <span class="btn btn-info" id="update-author--${item.firebaseKey}">
-          <i class="fa fa-edit" id="update-author-icon--${item.firebaseKey}" aria-hidden="true"></i>
+        <span class="btn btn-info" id="edit-author-btn--${item.firebaseKey}">
+          <i class="fa fa-edit" id="edit-author-btn-icon--${item.firebaseKey}" aria-hidden="true"></i>
         </span>
         <span class="btn btn-danger" id="delete-author-btn--${item.firebaseKey}">
           <i class="fa fa-trash-alt" id="delete-author-btn-icon--${item.firebaseKey}" aria-hidden="true"></i>   
