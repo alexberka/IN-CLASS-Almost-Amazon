@@ -38,15 +38,37 @@ const getSingleBook = (firebaseKey) => new Promise((resolve, reject) => {
     }
   })
     .then((response) => response.json())
-    .then((data) => resolve(Object.values(data)))
+    .then((data) => resolve(data))
     .catch(reject);
 });
 
 // TODO: CREATE BOOK
-const createBook = () => {};
+const createBook = (payload) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/books.json`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+  })
+    .then((response) => response.json())
+    .then((data) => resolve(data))
+    .catch(reject);
+});
 
 // TODO: UPDATE BOOK
-const updateBook = () => {};
+const updateBook = (payload) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/books/${payload.firebaseKey}.json`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+  })
+    .then((response) => response.json())
+    .then(resolve)
+    .catch(reject);
+});
 
 // TODO: FILTER BOOKS ON SALE
 const booksOnSale = () => new Promise((resolve, reject) => {
