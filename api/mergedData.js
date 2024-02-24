@@ -1,5 +1,5 @@
 import { deleteSingleAuthor, getAuthorBooks, getSingleAuthor } from './authorData';
-import { deleteBook, getSingleBook } from './bookData';
+import { deleteBook, getBooks, getSingleBook } from './bookData';
 
 // for merged promises
 const getBookDetails = async (firebaseKey) => {
@@ -23,4 +23,16 @@ const deleteAuthorAndBooks = async (firebaseKey) => {
   await Promise.all([authorDelete, booksDelete]);
 };
 
-export { getBookDetails, getAuthorDetails, deleteAuthorAndBooks };
+const searchStore = async (query) => {
+  const matched = await getBooks().then((data) => (
+    data.filter((book) => book.title.toLowerCase().includes(query))
+  ));
+  return matched;
+};
+
+export {
+  getBookDetails,
+  getAuthorDetails,
+  deleteAuthorAndBooks,
+  searchStore
+};
