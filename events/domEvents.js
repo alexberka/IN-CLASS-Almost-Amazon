@@ -1,4 +1,6 @@
-import { deleteSingleAuthor, getAuthors, getSingleAuthor } from '../api/authorData';
+import {
+  deleteSingleAuthor, getAuthors, getSingleAuthor, updateAuthor
+} from '../api/authorData';
 import { getBooks, deleteBook, getSingleBook } from '../api/bookData';
 import { getBookDetails, getAuthorDetails } from '../api/mergedData';
 import addAuthorForm from '../components/forms/addAuthorForm';
@@ -62,6 +64,24 @@ const domEvents = () => {
     if (e.target.id.includes('view-author-btn')) {
       const [, firebaseKey] = e.target.id.split('--');
       getAuthorDetails(firebaseKey).then(viewAuthor);
+    }
+
+    if (e.target.id.includes('fav-author-btn')) {
+      const [, firebaseKey] = e.target.id.split('--');
+      getSingleAuthor(firebaseKey).then((authorObj) => {
+        const payload = {
+          favorite: authorObj.favorite,
+          firebaseKey
+        };
+        if (payload.favorite) {
+          payload.favorite = false;
+        } else {
+          payload.favorite = true;
+        }
+        updateAuthor(payload).then(() => {
+          getAuthors().then(showAuthors);
+        });
+      });
     }
   });
 };
