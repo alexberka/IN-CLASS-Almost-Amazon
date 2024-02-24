@@ -20,7 +20,9 @@ const viewBook = (obj) => {
       <div class="text-white ms-5 details">
         <h4>${obj.title}</h4>
         <h5>- ${obj.authorObject.first_name} ${obj.authorObject.last_name}
-          ${obj.authorObject.favorite ? '<span class="badge bg-warning"><i class="fa fa-star" aria-hidden="true"></i></span>' : ''}
+          <span class="badge ${obj.authorObject.favorite ? 'bg-warning' : 'bg-dark'}" id="fav-author-btn--${obj.authorObject.firebaseKey}">
+            <i class="fa fa-star" id="fav-author-btn-icon--${obj.authorObject.firebaseKey}" aria-hidden="true"></i>
+          </span>
           <span class="badge bg-success" id="view-author-btn--${obj.authorObject.firebaseKey}">
             <i class="fa fa-eye" id="view-author-btn-icon--${obj.authorObject.firebaseKey}" aria-hidden="true"></i>
           </span>
