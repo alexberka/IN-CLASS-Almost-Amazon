@@ -4,6 +4,7 @@ import { showBooks } from '../pages/books';
 import { favoriteAuthors, getAuthors } from '../api/authorData';
 import { showAuthors } from '../pages/authors';
 import { searchStore } from '../api/mergedData';
+import clearDom from '../utils/clearDom';
 
 // navigation events
 const navigationEvents = () => {
@@ -43,7 +44,11 @@ const navigationEvents = () => {
       // MAKE A CALL TO THE API TO FILTER ON THE BOOKS
       // IF THE SEARCH DOESN'T RETURN ANYTHING, SHOW THE EMPTY STORE
       // OTHERWISE SHOW THE STORE
-      searchStore(searchValue).then(showBooks);
+      searchStore(searchValue).then((matched) => {
+        clearDom();
+        showBooks(matched.books, false);
+        showAuthors(matched.authors, false);
+      });
       document.querySelector('#search').value = '';
     }
   });

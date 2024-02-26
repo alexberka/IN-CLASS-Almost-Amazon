@@ -3,15 +3,15 @@ import renderToDOM from '../utils/renderToDom';
 
 const emptyAuthors = () => {
   const domString = '<h1>No Authors</h1>';
-  renderToDOM('#store', domString);
+  renderToDOM('#author-store', domString);
 };
 
-const showAuthors = (array) => {
-  clearDom();
-
-  const btnString = '<button class="btn btn-success btn-lg mb-4" id="add-author-btn">Add An Author</button>';
-
-  renderToDOM('#add-button', btnString);
+const showAuthors = (array, clearAll = true) => {
+  if (clearAll) {
+    clearDom();
+    const btnString = '<button class="btn btn-success btn-lg mb-4" id="add-author-btn">Add An Author</button>';
+    renderToDOM('#add-button', btnString);
+  }
   if (array.length === 0) {
     emptyAuthors();
   } else {
@@ -39,7 +39,7 @@ const showAuthors = (array) => {
       </div>
       `;
     });
-    renderToDOM('#store', domString);
+    renderToDOM('#author-store', domString);
   }
 };
 
