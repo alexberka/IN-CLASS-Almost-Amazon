@@ -25,13 +25,13 @@ const deleteAuthorAndBooks = async (firebaseKey) => {
   await Promise.all([authorDelete, booksDelete]);
 };
 
-const searchStore = async (query) => {
-  const matchedBooks = await getBooks().then((data) => (
+const searchStore = async (uid, query) => {
+  const matchedBooks = await getBooks(uid).then((data) => (
     data.filter((book) => book.title.toLowerCase().includes(query)
     || book.description.toLowerCase().includes(query)
     || book.price.toLowerCase().includes(query))
   ));
-  const matchedAuthors = await getAuthors().then((data) => (
+  const matchedAuthors = await getAuthors(uid).then((data) => (
     data.filter((author) => author.first_name.toLowerCase().includes(query)
     || author.last_name.toLowerCase().includes(query)
     || author.email.toLowerCase().includes(query))

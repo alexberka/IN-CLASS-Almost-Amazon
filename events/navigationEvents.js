@@ -7,19 +7,19 @@ import { searchStore } from '../api/mergedData';
 import clearDom from '../utils/clearDom';
 
 // navigation events
-const navigationEvents = () => {
+const navigationEvents = (uid) => {
   // LOGOUT BUTTON
   document.querySelector('#logout-button')
     .addEventListener('click', signOut);
 
   // TODO: BOOKS ON SALE
   document.querySelector('#sale-books').addEventListener('click', () => {
-    booksOnSale().then(showBooks);
+    booksOnSale(uid).then((check) => showBooks(check));
   });
 
   // TODO: ALL BOOKS
   document.querySelector('#all-books').addEventListener('click', () => {
-    getBooks().then(showBooks);
+    getBooks(uid).then((check) => showBooks(check));
   });
 
   // FIXME: STUDENTS Create an event listener for the Authors
@@ -27,11 +27,11 @@ const navigationEvents = () => {
   // 2. Convert the response to an array because that is what the makeAuthors function is expecting
   // 3. If the array is empty because there are no authors, make sure to use the emptyAuthor function
   document.querySelector('#authors').addEventListener('click', () => {
-    getAuthors().then(showAuthors);
+    getAuthors(uid).then(showAuthors);
   });
 
   document.querySelector('#fav-authors').addEventListener('click', () => {
-    favoriteAuthors().then(showAuthors);
+    favoriteAuthors(uid).then(showAuthors);
   });
 
   // STRETCH: SEARCH
@@ -44,7 +44,7 @@ const navigationEvents = () => {
       // MAKE A CALL TO THE API TO FILTER ON THE BOOKS
       // IF THE SEARCH DOESN'T RETURN ANYTHING, SHOW THE EMPTY STORE
       // OTHERWISE SHOW THE STORE
-      searchStore(searchValue).then((matched) => {
+      searchStore(uid, searchValue).then((matched) => {
         clearDom();
         showBooks(matched.books, false);
         showAuthors(matched.authors, false);
