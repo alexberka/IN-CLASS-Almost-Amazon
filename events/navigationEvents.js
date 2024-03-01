@@ -5,6 +5,8 @@ import { favoriteAuthors, getAuthors } from '../api/authorData';
 import { showAuthors } from '../pages/authors';
 import { searchStore } from '../api/mergedData';
 import clearDom from '../utils/clearDom';
+import { getOrders } from '../api/orderData';
+import { showOrders } from '../pages/orders';
 
 // navigation events
 const navigationEvents = (uid) => {
@@ -32,6 +34,10 @@ const navigationEvents = (uid) => {
 
   document.querySelector('#fav-authors').addEventListener('click', () => {
     favoriteAuthors(uid).then(showAuthors);
+  });
+
+  document.querySelector('#orders').addEventListener('click', () => {
+    getOrders(uid).then(showOrders);
   });
 
   // STRETCH: SEARCH

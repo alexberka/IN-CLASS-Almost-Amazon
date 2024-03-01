@@ -1,7 +1,9 @@
 import { createAuthor, getAuthors, updateAuthor } from '../api/authorData';
 import { createBook, getBooks, updateBook } from '../api/bookData';
+import { createOrder, getOrders, updateOrder } from '../api/orderData';
 import { showAuthors } from '../pages/authors';
 import { showBooks } from '../pages/books';
+import { showOrders } from '../pages/orders';
 
 const formEvents = (uid) => {
   document.querySelector('#main-container').addEventListener('submit', (e) => {
@@ -76,6 +78,39 @@ const formEvents = (uid) => {
 
       updateAuthor(payload).then(() => {
         getAuthors(uid).then(showAuthors);
+      });
+    }
+
+    if (e.target.id.includes('submit-order')) {
+      const payload = {
+        title: document.querySelector('#title').value,
+        customer_first_name: document.querySelector('#first_name').value,
+        customer_last_name: document.querySelector('#last_name').value,
+        notes: document.querySelector('#notes').value,
+        uid
+      };
+
+      createOrder(payload).then(({ name }) => {
+        const patchPayload = { firebaseKey: name };
+
+        updateOrder(patchPayload).then(() => {
+          getOrders(uid).then(showOrders);
+        });
+      });
+    }
+    // FIXME:ADD CLICK EVENT FOR EDITING AN AUTHOR
+    if (e.target.id.includes('update-order')) {
+      const [, firebaseKey] = e.target.id.split('--');
+      const payload = {
+        title: document.querySelector('#title').value,
+        customer_first_name: document.querySelector('#first_name').value,
+        customer_last_name: document.querySelector('#last_name').value,
+        notes: document.querySelector('#notes').value,
+        firebaseKey
+      };
+
+      updateOrder(payload).then(() => {
+        getOrders(uid).then(showOrders);
       });
     }
   });
